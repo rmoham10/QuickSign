@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import PageWrapper from './PageWrapper';
 
 export default function VerifyPhone() {
   const { state } = useLocation();
@@ -52,35 +53,38 @@ export default function VerifyPhone() {
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <h1 style={styles.logo}>BeFit</h1>
-        <p style={styles.title}>Verify your phone</p>
-        <p style={styles.sub}>We sent a 6-digit code to <strong>{phone}</strong></p>
+    <PageWrapper>
+        {
+            <div style={styles.page}>
+            <div style={styles.card}>
+                <p style={styles.title}>Verify your phone</p>
+                <p style={styles.sub}>We sent a 6-digit code to <strong>{phone}</strong></p>
 
-        <div style={styles.otpRow}>
-          {digits.map((d, i) => (
-            <input key={i} ref={el => refs.current[i] = el}
-              style={styles.otpBox} maxLength={1} value={d}
-              onChange={e => handleChange(i, e.target.value)}
-              onKeyDown={e => handleKeyDown(i, e)}
-              inputMode="numeric" />
-          ))}
-        </div>
+                <div style={styles.otpRow}>
+                {digits.map((d, i) => (
+                    <input key={i} ref={el => refs.current[i] = el}
+                    style={styles.otpBox} maxLength={1} value={d}
+                    onChange={e => handleChange(i, e.target.value)}
+                    onKeyDown={e => handleKeyDown(i, e)}
+                    inputMode="numeric" />
+                ))}
+                </div>
 
-        {error && <p style={styles.error}>{error}</p>}
-        {resendMsg && <p style={styles.success}>{resendMsg}</p>}
+                {error && <p style={styles.error}>{error}</p>}
+                {resendMsg && <p style={styles.success}>{resendMsg}</p>}
 
-        <button style={styles.btn} onClick={handleVerify} disabled={loading}>
-          {loading ? 'Verifying…' : 'Verify'}
-        </button>
+                <button style={styles.btn} onClick={handleVerify} disabled={loading}>
+                {loading ? 'Verifying…' : 'Verify'}
+                </button>
 
-        <p style={styles.resend}>
-          Didn't receive it?{' '}
-          <span style={styles.link} onClick={handleResend}>Resend code</span>
-        </p>
-      </div>
-    </div>
+                <p style={styles.resend}>
+                Didn't receive it?{' '}
+                <span style={styles.link} onClick={handleResend}>Resend code</span>
+                </p>
+            </div>
+            </div>
+        }
+    </PageWrapper>
   );
 }
 

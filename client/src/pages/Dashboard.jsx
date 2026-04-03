@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import PageWrapper from './PageWrapper';
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -37,13 +38,8 @@ export default function Dashboard() {
   if (!user) return <div style={styles.loading}>Loading…</div>;
 
   return (
-    <div style={styles.page}>
+    <PageWrapper>
       <div style={styles.card}>
-        <div style={styles.header}>
-          <h1 style={styles.logo}>BeFit</h1>
-          <button style={styles.signout} onClick={handleSignout}>Sign out</button>
-        </div>
-
         <div style={styles.avatar}>{user.full_name[0].toUpperCase()}</div>
         <p style={styles.tier}>{user.tier.toUpperCase()} MEMBER</p>
 
@@ -81,12 +77,14 @@ export default function Dashboard() {
             : <button style={styles.btnPrimary} onClick={() => setEditing(true)}>Edit profile</button>
           }
           <button style={styles.btnDanger} onClick={handleDelete}>Delete account</button>
+          <button style={styles.signout} onClick={handleSignout}>Sign out</button>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 }
 
+// Keep your existing styles here
 const styles = {
   page:      { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f3', fontFamily: 'system-ui, sans-serif' },
   card:      { background: '#fff', borderRadius: 16, padding: '36px', width: '100%', maxWidth: 440, boxShadow: '0 2px 16px rgba(0,0,0,0.08)' },

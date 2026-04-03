@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api/axios';
+import PageWrapper from './PageWrapper';
 
 export default function Signin() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -30,34 +31,37 @@ export default function Signin() {
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <h1 style={styles.logo}>BeFit</h1>
-        <p style={styles.sub}>Sign in to your account</p>
+    <PageWrapper>
+        {
+            <div style={styles.page}>
+            <div style={styles.card}>
+                <p style={styles.sub}>Sign in to your account</p>
 
-        <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
-          <Field label="Email" error={errors.email?.message}>
-            <input style={styles.input} type="email" placeholder="jane@email.com"
-              {...register('email', { required: 'Email is required' })} />
-          </Field>
+                <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
+                <Field label="Email" error={errors.email?.message}>
+                    <input style={styles.input} type="email" placeholder="jane@email.com"
+                    {...register('email', { required: 'Email is required' })} />
+                </Field>
 
-          <Field label="Password" error={errors.password?.message}>
-            <input style={styles.input} type="password" placeholder="Your password"
-              {...register('password', { required: 'Password is required' })} />
-          </Field>
+                <Field label="Password" error={errors.password?.message}>
+                    <input style={styles.input} type="password" placeholder="Your password"
+                    {...register('password', { required: 'Password is required' })} />
+                </Field>
 
-          {serverError && <p style={styles.error}>{serverError}</p>}
+                {serverError && <p style={styles.error}>{serverError}</p>}
 
-          <button style={styles.btn} type="submit" disabled={loading}>
-            {loading ? 'Signing in…' : 'Sign in'}
-          </button>
-        </form>
+                <button style={styles.btn} type="submit" disabled={loading}>
+                    {loading ? 'Signing in…' : 'Sign in'}
+                </button>
+                </form>
 
-        <p style={styles.footer}>
-          No account? <Link to="/signup" style={styles.link}>Sign up</Link>
-        </p>
-      </div>
-    </div>
+                <p style={styles.footer}>
+                No account? <Link to="/signup" style={styles.link}>Sign up</Link>
+                </p>
+            </div>
+            </div>
+        }
+    </PageWrapper>
   );
 }
 
