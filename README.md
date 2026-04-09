@@ -93,3 +93,11 @@ Before running the project, make sure the following are installed:
 - npm run dev
 - The frontend will run on http://localhost:5173 (Vite default port).
 
+## License
+
+- MIT License
+
+- Copyright (c) 2026 Riyaz Mohammad
+
+- This project is licensed under the MIT License.
+
